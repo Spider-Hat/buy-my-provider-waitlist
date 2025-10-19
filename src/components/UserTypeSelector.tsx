@@ -16,7 +16,7 @@ const UserTypeSelector = ({ selectedType, onTypeChange }: UserTypeSelectorProps)
           "relative group p-8 rounded-2xl border-2 transition-all duration-300",
           "hover:scale-[1.02] active:scale-[0.98]",
           selectedType === "buyer"
-            ? "border-primary bg-primary/10 shadow-glow-primary"
+            ? "border-primary bg-primary/10 shadow-hover"
             : "border-border bg-card/50 hover:border-primary/50"
         )}
       >
@@ -24,13 +24,13 @@ const UserTypeSelector = ({ selectedType, onTypeChange }: UserTypeSelectorProps)
           <div className={cn(
             "w-16 h-16 rounded-xl flex items-center justify-center transition-all",
             selectedType === "buyer" 
-              ? "bg-gradient-primary shadow-glow-primary" 
+              ? "bg-gradient-primary" 
               : "bg-muted"
           )}>
             <Building2 className="w-8 h-8" />
           </div>
           <div>
-            <h3 className="text-xl font-orbitron font-bold mb-2">I'm a Buyer</h3>
+            <h3 className="text-xl font-raleway font-bold mb-2">I'm a Buyer</h3>
             <p className="text-sm text-muted-foreground">
               Looking for verified suppliers to grow my business
             </p>
@@ -52,7 +52,7 @@ const UserTypeSelector = ({ selectedType, onTypeChange }: UserTypeSelectorProps)
           "relative group p-8 rounded-2xl border-2 transition-all duration-300",
           "hover:scale-[1.02] active:scale-[0.98]",
           selectedType === "supplier"
-            ? "border-primary bg-primary/10 shadow-glow-primary"
+            ? "border-primary bg-primary/10 shadow-hover"
             : "border-border bg-card/50 hover:border-primary/50"
         )}
       >
@@ -60,13 +60,13 @@ const UserTypeSelector = ({ selectedType, onTypeChange }: UserTypeSelectorProps)
           <div className={cn(
             "w-16 h-16 rounded-xl flex items-center justify-center transition-all",
             selectedType === "supplier" 
-              ? "bg-gradient-primary shadow-glow-primary" 
+              ? "bg-gradient-primary" 
               : "bg-muted"
           )}>
             <Store className="w-8 h-8" />
           </div>
           <div>
-            <h3 className="text-xl font-orbitron font-bold mb-2">I'm a Supplier</h3>
+            <h3 className="text-xl font-raleway font-bold mb-2">I'm a Supplier</h3>
             <p className="text-sm text-muted-foreground">
               Ready to connect with buyers and expand my reach
             </p>

@@ -57,8 +57,8 @@ export default {
         'gradient-subtle': 'var(--gradient-subtle)',
       },
       boxShadow: {
-        'glow-primary': 'var(--glow-primary)',
-        'glow-accent': 'var(--glow-accent)',
+        'soft': 'var(--shadow-soft)',
+        'hover': 'var(--shadow-hover)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -82,10 +82,6 @@ export default {
           "0%": { transform: "scale(0.95)", opacity: "0" },
           "100%": { transform: "scale(1)", opacity: "1" }
         },
-        "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 10px hsla(0, 60%, 55%, 0.2)" },
-          "50%": { boxShadow: "0 0 25px hsla(0, 60%, 55%, 0.4)" }
-        },
         "success-scale": {
           "0%": { transform: "scale(0)" },
           "50%": { transform: "scale(1.1)" },
@@ -97,7 +93,6 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out",
         "scale-in": "scale-in 0.3s ease-out",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "success-scale": "success-scale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
       },
     },

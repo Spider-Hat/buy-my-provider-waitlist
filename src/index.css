@@ -53,9 +53,12 @@ All colors MUST be HSL.
     --gradient-primary: linear-gradient(135deg, hsl(0, 60%, 55%), hsl(20, 70%, 55%));
     --gradient-subtle: linear-gradient(180deg, hsl(229, 60%, 10%), hsl(229, 50%, 8%));
     
-    /* Glow Effects */
-    --glow-primary: 0 0 20px hsla(0, 60%, 55%, 0.3);
-    --glow-accent: 0 0 30px hsla(0, 60%, 55%, 0.2);
+    /* Light background from SpiderHat palette */
+    --alice-blue: 240 5% 98%;  /* #F0F0FC - Alice Blue */
+    
+    /* Subtle shadow effects - less futuristic */
+    --shadow-soft: 0 4px 12px hsla(229, 60%, 10%, 0.3);
+    --shadow-hover: 0 8px 24px hsla(0, 60%, 55%, 0.15);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -95,8 +98,13 @@ All colors MUST be HSL.
     font-family: 'Raleway', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2 {
     font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+  }
+  
+  h3, h4, h5, h6 {
+    font-family: 'Raleway', sans-serif;
     font-weight: 700;
   }
 }
@@ -106,24 +114,11 @@ All colors MUST be HSL.
     @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
   }
 
-  .glow-primary {
-    box-shadow: var(--glow-primary);
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
   }
 
-  .glow-accent {
-    box-shadow: var(--glow-accent);
-  }
-
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes glow {
-    from {
-      box-shadow: 0 0 10px hsla(0, 60%, 55%, 0.2);
-    }
-    to {
-      box-shadow: 0 0 25px hsla(0, 60%, 55%, 0.4);
-    }
+  .shadow-hover {
+    box-shadow: var(--shadow-hover);
   }
 }

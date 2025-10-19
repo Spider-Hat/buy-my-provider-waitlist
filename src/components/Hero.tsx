@@ -8,23 +8,16 @@ interface HeroProps {
 const Hero = ({ onJoinClick }: HeroProps) => {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
-      {/* Animated background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1f4e_1px,transparent_1px),linear-gradient(to_bottom,#1a1f4e_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_110%)] opacity-20"></div>
-      
-      {/* Glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse-glow"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px] animate-pulse-glow" style={{ animationDelay: '1s' }}></div>
+      {/* Subtle background accent */}
+      <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]"></div>
 
       <div className="relative z-10 max-w-5xl mx-auto text-center animate-fade-in">
         {/* Logo/Brand */}
         <div className="mb-8 flex items-center justify-center gap-3">
-          <div className="w-12 h-12 relative">
-            <div className="absolute inset-0 bg-gradient-primary rounded-lg blur-sm"></div>
-            <div className="relative w-full h-full bg-card border border-primary/50 rounded-lg flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7">
-                <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z" fill="currentColor" className="text-primary"/>
-              </svg>
-            </div>
+          <div className="w-12 h-12 bg-primary/10 border border-primary/30 rounded-lg flex items-center justify-center">
+            <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7">
+              <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z" fill="currentColor" className="text-primary"/>
+            </svg>
           </div>
           <div className="text-left">
             <h2 className="text-xl font-orbitron font-bold text-gradient-primary">BuyMyProvider</h2>
@@ -50,7 +43,7 @@ const Hero = ({ onJoinClick }: HeroProps) => {
         <Button 
           onClick={onJoinClick}
           size="lg"
-          className="group relative bg-gradient-primary hover:opacity-90 text-lg px-10 py-7 rounded-xl font-orbitron font-bold shadow-glow-primary hover:shadow-glow-accent transition-all duration-300"
+          className="group relative bg-gradient-primary hover:opacity-90 text-lg px-10 py-7 rounded-xl font-raleway font-bold shadow-hover hover:shadow-lg transition-all duration-300"
         >
           Join the Waitlist
           <ArrowDown className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform" />
