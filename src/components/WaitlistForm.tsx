@@ -46,9 +46,9 @@ const categories = [
 ];
 
 const countries = [
-  "Argentina", "Bolivia", "Brasil", "Chile", "Colombia", 
-  "Costa Rica", "Ecuador", "El Salvador", "Guatemala", 
-  "Honduras", "México", "Nicaragua", "Panamá", "Paraguay", 
+  "Argentina", "Bolivia", "Brasil", "Chile", "Colombia",
+  "Costa Rica", "Ecuador", "El Salvador", "Guatemala",
+  "Honduras", "México", "Nicaragua", "Panamá", "Paraguay",
   "Perú", "Uruguay", "Venezuela", "Other"
 ];
 
@@ -74,18 +74,18 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
     const newCategories = selectedCategories.includes(category)
       ? selectedCategories.filter((c) => c !== category)
       : [...selectedCategories, category];
-    
+
     setSelectedCategories(newCategories);
     setValue("categories", newCategories);
   };
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
-    
+
     try {
       // Send to Google Sheets
-      const response = await fetch(
-        "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec",
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbz5qwrRGrhZz8PlUoS4_sQPsPRIX67YrFBXIrMBFrzLDcLnjqQiPwdZaqvQWCP9SGMz/exec",
         {
           method: "POST",
           mode: "no-cors",
@@ -104,7 +104,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
           }),
         }
       );
-      
+
       setIsSubmitting(false);
       onSuccess();
     } catch (error) {
@@ -118,7 +118,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
     <section id="waitlist-form" className="py-20 px-4 relative">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/20 to-background"></div>
-      
+
       <div className="relative z-10 max-w-4xl mx-auto">
         <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -134,8 +134,8 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
             {/* User Type Selector */}
             <div>
               <Label className="text-lg font-semibold mb-4 block">I am a...</Label>
-              <UserTypeSelector 
-                selectedType={userType} 
+              <UserTypeSelector
+                selectedType={userType}
                 onTypeChange={(type) => {
                   setUserType(type);
                   setValue("userType", type);
@@ -228,7 +228,6 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
                   <div
                     key={category}
                     className="flex items-center space-x-3 bg-input/50 p-4 rounded-lg border border-border hover:border-primary/50 transition-colors cursor-pointer"
-                    onClick={() => handleCategoryToggle(category)}
                   >
                     <Checkbox
                       id={category}
