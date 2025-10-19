@@ -1,13 +1,44 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useRef } from "react";
+import Hero from "@/components/Hero";
+import WaitlistForm from "@/components/WaitlistForm";
+import SuccessState from "@/components/SuccessState";
 
 const Index = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSuccess = () => {
+    setShowSuccess(true);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <main className="relative min-h-screen">
+      <Hero onJoinClick={scrollToForm} />
+      
+      <div ref={formRef}>
+        <WaitlistForm onSuccess={handleSuccess} />
       </div>
-    </div>
+
+      {/* Footer */}
+      <footer className="relative z-10 py-8 px-4 border-t border-border">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-sm text-muted-foreground">
+            <span className="font-orbitron font-bold text-foreground">BuyMyProvider</span> — Powered by{" "}
+            <span className="text-primary">SpiderHat × TADOS</span>
+          </p>
+          <p className="text-xs text-muted-foreground mt-2">
+            © {new Date().getFullYear()} All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+      {/* Success overlay */}
+      {showSuccess && <SuccessState />}
+    </main>
   );
 };
 
