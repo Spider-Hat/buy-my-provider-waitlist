@@ -7,12 +7,12 @@ const SuccessState = () => {
       <div className="max-w-lg mx-auto px-4 text-center">
         <div className="mb-8 flex justify-center">
           <div className="relative">
-            <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse-glow"></div>
+            <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl"></div>
             <CheckCircle2 className="relative w-24 h-24 text-primary animate-success-scale" strokeWidth={1.5} />
           </div>
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-orbitron font-bold mb-4 animate-scale-in">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 animate-scale-in">
           You're on the list!
         </h2>
 
@@ -21,7 +21,7 @@ const SuccessState = () => {
         </p>
 
         <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-8 mb-8 animate-scale-in" style={{ animationDelay: '0.3s' }}>
-          <h3 className="text-lg font-orbitron font-bold mb-4">What's Next?</h3>
+          <h3 className="text-lg font-bold mb-4">What's Next?</h3>
           <ul className="space-y-3 text-left text-muted-foreground">
             <li className="flex items-start gap-3">
               <span className="text-primary mt-1">•</span>
@@ -46,7 +46,7 @@ const SuccessState = () => {
           <Button
             onClick={() => window.location.reload()}
             variant="outline"
-            className="w-full md:w-auto px-8 h-12 rounded-xl font-orbitron border-primary/50 hover:bg-primary/10"
+            className="w-full md:w-auto px-8 h-12 rounded-xl border-primary/50 hover:bg-primary/10"
           >
             Back to Home
           </Button>

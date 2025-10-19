@@ -30,7 +30,7 @@ const UserTypeSelector = ({ selectedType, onTypeChange }: UserTypeSelectorProps)
             <Building2 className="w-8 h-8" />
           </div>
           <div>
-            <h3 className="text-xl font-raleway font-bold mb-2">I'm a Buyer</h3>
+            <h3 className="text-xl font-bold mb-2">I'm a Buyer</h3>
             <p className="text-sm text-muted-foreground">
               Looking for verified suppliers to grow my business
             </p>
@@ -66,7 +66,7 @@ const UserTypeSelector = ({ selectedType, onTypeChange }: UserTypeSelectorProps)
             <Store className="w-8 h-8" />
           </div>
           <div>
-            <h3 className="text-xl font-raleway font-bold mb-2">I'm a Supplier</h3>
+            <h3 className="text-xl font-bold mb-2">I'm a Supplier</h3>
             <p className="text-sm text-muted-foreground">
               Ready to connect with buyers and expand my reach
             </p>

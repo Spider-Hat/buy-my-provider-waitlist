@@ -17,9 +17,10 @@ import UserTypeSelector from "./UserTypeSelector";
 import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters").max(100),
-  companyName: z.string().max(100).optional(),
-  contact: z.string().min(5, "Please provide a valid email or WhatsApp number"),
+  fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
+  companyName: z.string().trim().max(100).optional(),
+  email: z.string().trim().email("Please provide a valid email").max(255),
+  whatsapp: z.string().trim().min(8, "Please provide a valid WhatsApp number").max(20),
   userType: z.enum(["buyer", "supplier"]),
   country: z.string().min(1, "Please select your country"),
   categories: z.array(z.string()).min(1, "Please select at least one category"),
@@ -81,13 +82,36 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log("Form submitted:", data);
-    
-    setIsSubmitting(false);
-    onSuccess();
+    try {
+      // Send to Google Sheets
+      const response = await fetch(
+        "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            fullName: data.fullName,
+            companyName: data.companyName || "",
+            email: data.email,
+            whatsapp: data.whatsapp,
+            userType: data.userType,
+            country: data.country,
+            categories: data.categories.join(", "),
+          }),
+        }
+      );
+      
+      setIsSubmitting(false);
+      onSuccess();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setIsSubmitting(false);
+      alert("There was an error submitting the form. Please try again.");
+    }
   };
 
   return (
@@ -97,7 +121,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
       
       <div className="relative z-10 max-w-4xl mx-auto">
         <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-orbitron font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Join the <span className="text-gradient-primary">Revolution</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -109,7 +133,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             {/* User Type Selector */}
             <div>
-              <Label className="text-lg font-orbitron mb-4 block">I am a...</Label>
+              <Label className="text-lg font-semibold mb-4 block">I am a...</Label>
               <UserTypeSelector 
                 selectedType={userType} 
                 onTypeChange={(type) => {
@@ -145,39 +169,55 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
               </div>
             </div>
 
-            {/* Contact & Location */}
+            {/* Contact Info */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="contact" className="text-base">Email or WhatsApp *</Label>
+                <Label htmlFor="email" className="text-base">Email *</Label>
                 <Input
-                  id="contact"
-                  {...register("contact")}
-                  placeholder="email@example.com or +52 123 456 7890"
+                  id="email"
+                  type="email"
+                  {...register("email")}
+                  placeholder="email@example.com"
                   className="bg-input border-border h-12"
                 />
-                {errors.contact && (
-                  <p className="text-sm text-destructive">{errors.contact.message}</p>
+                {errors.email && (
+                  <p className="text-sm text-destructive">{errors.email.message}</p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="country" className="text-base">Country / Region *</Label>
-                <Select onValueChange={(value) => setValue("country", value)}>
-                  <SelectTrigger className="bg-input border-border h-12">
-                    <SelectValue placeholder="Select your country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {countries.map((country) => (
-                      <SelectItem key={country} value={country}>
-                        {country}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.country && (
-                  <p className="text-sm text-destructive">{errors.country.message}</p>
+                <Label htmlFor="whatsapp" className="text-base">WhatsApp *</Label>
+                <Input
+                  id="whatsapp"
+                  type="tel"
+                  {...register("whatsapp")}
+                  placeholder="+52 123 456 7890"
+                  className="bg-input border-border h-12"
+                />
+                {errors.whatsapp && (
+                  <p className="text-sm text-destructive">{errors.whatsapp.message}</p>
                 )}
               </div>
+            </div>
+
+            {/* Location */}
+            <div className="space-y-2">
+              <Label htmlFor="country" className="text-base">Country / Region *</Label>
+              <Select onValueChange={(value) => setValue("country", value)}>
+                <SelectTrigger className="bg-input border-border h-12">
+                  <SelectValue placeholder="Select your country" />
+                </SelectTrigger>
+                <SelectContent>
+                  {countries.map((country) => (
+                    <SelectItem key={country} value={country}>
+                      {country}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {errors.country && (
+                <p className="text-sm text-destructive">{errors.country.message}</p>
+              )}
             </div>
 
             {/* Categories */}
@@ -213,7 +253,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-primary hover:opacity-90 text-lg h-14 rounded-xl font-orbitron font-bold shadow-glow-primary hover:shadow-glow-accent transition-all duration-300"
+              className="w-full bg-gradient-primary hover:opacity-90 text-lg h-14 rounded-xl font-bold shadow-hover hover:shadow-lg transition-all duration-300"
             >
               {isSubmitting ? (
                 <>
