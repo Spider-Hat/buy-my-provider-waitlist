@@ -46,6 +46,7 @@ const SuccessState = () => {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          Questions? Contact us at <a href="mailto:buymyprovider@spiderhat.com" className="text-primary hover:underline">buymyprovider@spiderhat.com</a>
           {t.success.contact}{" "}
           <a href="mailto:hello@buymyprovider.com" className="text-primary hover:underline">hello@buymyprovider.com</a>
         </p>
