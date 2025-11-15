@@ -17,6 +17,7 @@ import UserTypeSelector from "./UserTypeSelector";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "@/hooks/useTranslations";
 import { translations } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
 type FormData = {
   fullName: string;
@@ -126,20 +127,20 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
   };
 
   return (
-    <section id="waitlist-form" className="py-20 px-4 relative">
+    <section id="waitlist-form" className="py-20 px-4 relative bg-[hsl(var(--background))]">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/20 to-background"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/70 to-brand-cultured"></div>
 
       <div className="relative z-10 max-w-4xl mx-auto">
         <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-brand-eerie">
             {t.form.titlePrefix} {" "}
             <span className="text-gradient-primary">{t.form.titleHighlight}</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t.form.description}</p>
+          <p className="text-lg text-brand-auro max-w-2xl mx-auto">{t.form.description}</p>
         </div>
 
-        <div className="bg-card/50 backdrop-blur-sm border border-border rounded-3xl p-8 md:p-12 shadow-2xl">
+        <div className="bg-white border border-brand-cultured rounded-3xl p-8 md:p-12 shadow-soft">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             {/* User Type Selector */}
             <div>
@@ -162,7 +163,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
                   id="fullName"
                   {...register("fullName")}
                   placeholder={t.form.fullNamePlaceholder}
-                  className="bg-input border-border h-12"
+                  className="h-12 bg-white border-brand-cultured focus-visible:ring-brand-cerulean/50"
                 />
                 {errors.fullName && (
                   <p className="text-sm text-destructive">{errors.fullName.message}</p>
@@ -177,7 +178,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
                   id="companyName"
                   {...register("companyName")}
                   placeholder={t.form.companyNamePlaceholder}
-                  className="bg-input border-border h-12"
+                  className="h-12 bg-white border-brand-cultured focus-visible:ring-brand-cerulean/50"
                 />
               </div>
             </div>
@@ -193,7 +194,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
                   type="email"
                   {...register("email")}
                   placeholder={t.form.emailPlaceholder}
-                  className="bg-input border-border h-12"
+                  className="h-12 bg-white border-brand-cultured focus-visible:ring-brand-cerulean/50"
                 />
                 {errors.email && (
                   <p className="text-sm text-destructive">{errors.email.message}</p>
@@ -209,7 +210,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
                   type="tel"
                   {...register("whatsapp")}
                   placeholder={t.form.whatsappPlaceholder}
-                  className="bg-input border-border h-12"
+                  className="h-12 bg-white border-brand-cultured focus-visible:ring-brand-cerulean/50"
                 />
                 {errors.whatsapp && (
                   <p className="text-sm text-destructive">{errors.whatsapp.message}</p>
@@ -226,7 +227,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
                 value={selectedCountry || undefined}
                 onValueChange={(value) => setValue("country", value, { shouldValidate: true })}
               >
-                <SelectTrigger className="bg-input border-border h-12">
+                <SelectTrigger className="h-12 bg-white border-brand-cultured focus:ring-0">
                   <SelectValue placeholder={t.form.countryPlaceholder} />
                 </SelectTrigger>
                 <SelectContent>
@@ -246,24 +247,32 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
             <div className="space-y-4">
               <Label className="text-base">{t.form.categoriesLabel}</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {t.form.categoryOptions.map((option) => (
-                  <div
-                    key={option.value}
-                    className="flex items-center space-x-3 bg-input/50 p-4 rounded-lg border border-border hover:border-primary/50 transition-colors cursor-pointer"
-                  >
-                    <Checkbox
-                      id={option.value}
-                      checked={selectedCategories.includes(option.value)}
-                      onCheckedChange={() => handleCategoryToggle(option.value)}
-                    />
-                    <label
-                      htmlFor={option.value}
-                      className="text-sm cursor-pointer flex-1"
+                {t.form.categoryOptions.map((option) => {
+                  const isSelected = selectedCategories.includes(option.value);
+                  return (
+                    <div
+                      key={option.value}
+                      className={cn(
+                        "flex items-center space-x-3 p-4 rounded-2xl border transition-colors cursor-pointer",
+                        isSelected
+                          ? "border-brand-cerulean bg-white shadow-soft"
+                          : "border-brand-cultured bg-brand-cultured/60 hover:border-brand-cerulean/60"
+                      )}
                     >
-                      {option.label}
-                    </label>
-                  </div>
-                ))}
+                      <Checkbox
+                        id={option.value}
+                        checked={isSelected}
+                        onCheckedChange={() => handleCategoryToggle(option.value)}
+                      />
+                      <label
+                        htmlFor={option.value}
+                        className="text-sm cursor-pointer flex-1"
+                      >
+                        {option.label}
+                      </label>
+                    </div>
+                  );
+                })}
               </div>
               {errors.categories && (
                 <p className="text-sm text-destructive">{errors.categories.message}</p>
@@ -274,7 +283,7 @@ const WaitlistForm = ({ onSuccess }: WaitlistFormProps) => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-primary hover:opacity-90 text-lg h-14 rounded-xl font-bold shadow-hover hover:shadow-lg transition-all duration-300"
+              className="w-full bg-gradient-primary hover:opacity-95 text-lg h-14 rounded-2xl font-bold text-primary-foreground shadow-hover transition-all duration-300"
             >
               {isSubmitting ? (
                 <>

@@ -7,32 +7,57 @@ interface HeroProps {
   onJoinClick: () => void;
 }
 
+const logoVariants = {
+  primary: {
+    src: "/branding/logo-primary.svg",
+    alt: "Buy My Provider logotipo horizontal",
+  },
+  secondary: {
+    src: "/branding/logo-secondary.svg",
+    alt: "Buy My Provider logotipo secundario",
+  },
+  icon: {
+    src: "/branding/logo-icon.svg",
+    alt: "Isotipo Buy My Provider",
+  },
+} as const;
+
+type LogoVariant = keyof typeof logoVariants;
+
+const BrandLogo = ({ variant = "primary" }: { variant?: LogoVariant }) => {
+  const { src, alt } = logoVariants[variant];
+
+  return (
+    <div
+      className="inline-flex items-center justify-center rounded-[32px] bg-white border border-brand-cultured/70 px-8 py-6 shadow-soft"
+      aria-label={alt}
+    >
+      <img src={src} alt={alt} className="h-20 w-auto" loading="eager" />
+    </div>
+  );
+};
+
 const Hero = ({ onJoinClick }: HeroProps) => {
   const t = useTranslations();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
-      {/* Subtle background accent */}
-      <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]"></div>
+    <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden bg-[hsl(var(--background))]">
+      {/* Subtle background accent matching Cultured + Denim overlay */}
+      <div className="absolute inset-0 opacity-70" aria-hidden>
+        <div className="absolute -top-32 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-brand-blue-jeans/20 blur-3xl" />
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent to-brand-cultured/80" />
+      </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center animate-fade-in">
+      <div className="relative z-10 max-w-5xl mx-auto text-center animate-fade-in px-4">
         <div className="absolute right-0 -top-10 hidden md:flex">
           <LanguageToggle />
         </div>
-        {/* Logo/Brand */}
-        <div className="mb-8 flex items-center justify-center gap-3">
-          <div className="w-12 h-12 bg-primary/10 border border-primary/30 rounded-lg flex items-center justify-center">
-            <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7">
-              <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z" fill="currentColor" className="text-primary"/>
-            </svg>
-          </div>
-          <div className="text-left">
-            <h2 className="text-xl font-bold text-gradient-primary">{t.common.brand}</h2>
-            <p className="text-xs text-muted-foreground">
-              {t.common.poweredByPrefix}{" "}
-              <span className="text-primary">{t.common.poweredByHighlight}</span>
-            </p>
-          </div>
+
+        <div className="mb-8 flex flex-col items-center gap-4">
+          <BrandLogo variant="primary" />
+          <p className="text-sm uppercase tracking-[0.3em] text-brand-cerulean font-semibold">
+            {t.common.poweredByPrefix} <span className="text-brand-denim">{t.common.poweredByHighlight}</span>
+          </p>
         </div>
 
         <div className="mb-6 flex justify-center md:hidden">
@@ -40,7 +65,7 @@ const Hero = ({ onJoinClick }: HeroProps) => {
         </div>
 
         {/* Main headline */}
-        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+        <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight text-brand-eerie">
           {t.hero.headline.line1Prefix}{" "}
           <span className="text-gradient-primary">{t.hero.headline.line1Highlight}</span>
           <br />
@@ -49,28 +74,31 @@ const Hero = ({ onJoinClick }: HeroProps) => {
         </h1>
 
         {/* Subheadline */}
-        <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8 font-light">
+        <p className="text-xl md:text-2xl text-brand-auro max-w-3xl mx-auto mb-8">
           {t.hero.subheadline}
           <br />
-          <span className="text-foreground font-medium">{t.hero.subheadlineHighlight}</span>
+          <span className="text-brand-eerie font-semibold">{t.hero.subheadlineHighlight}</span>
         </p>
 
         {/* CTA */}
         <Button
           onClick={onJoinClick}
           size="lg"
-          className="group relative bg-gradient-primary hover:opacity-90 text-lg px-10 py-7 rounded-xl font-bold shadow-hover hover:shadow-lg transition-all duration-300"
+          className="group relative bg-gradient-primary hover:opacity-95 text-lg px-10 py-7 rounded-2xl font-bold text-primary-foreground shadow-hover transition-all duration-300"
         >
           {t.hero.cta}
           <ArrowDown className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform" />
         </Button>
 
         {/* Stats or trust indicators */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           {t.hero.stats.map((stat) => (
-            <div key={stat.title} className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6">
-              <div className="text-3xl font-bold text-primary mb-2">{stat.title}</div>
-              <div className="text-sm text-muted-foreground">{stat.description}</div>
+            <div
+              key={stat.title}
+              className="bg-white/90 border border-brand-cultured rounded-2xl p-6 text-left shadow-soft"
+            >
+              <div className="text-3xl font-bold text-brand-cerulean mb-2">{stat.title}</div>
+              <div className="text-sm text-brand-auro">{stat.description}</div>
             </div>
           ))}
         </div>
