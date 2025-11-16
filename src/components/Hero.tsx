@@ -9,15 +9,15 @@ interface HeroProps {
 
 const logoVariants = {
   primary: {
-    src: "/branding/logo-primary.svg",
+    src: "/branding/RGB_BP_Logo_Principal_Color_SinSlogan.png",
     alt: "Buy My Provider logotipo horizontal",
   },
   secondary: {
-    src: "/branding/logo-secondary.svg",
+    src: "/branding/RGB_BP_Logo_Secundario_Color_SinSlogan.png",
     alt: "Buy My Provider logotipo secundario",
   },
   icon: {
-    src: "/branding/logo-icon.svg",
+    src: "/branding/RGB_BP_Logo_Icono_Color.png",
     alt: "Isotipo Buy My Provider",
   },
 } as const;
