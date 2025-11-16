@@ -26,11 +26,11 @@ const Index = () => {
       </div>
 
       {/* Footer */}
-      <footer className="relative z-10 py-8 px-4 border-t border-border">
+      <footer className="relative z-10 py-8 px-4 border-t border-brand-cultured bg-white/80">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-sm text-muted-foreground">
-            <span className="font-orbitron font-bold text-foreground">{t.common.brand}</span> — {t.common.poweredByPrefix}{" "}
-            <span className="text-primary">{t.common.poweredByHighlight}</span>
+            <span className="font-manrope font-black text-brand-cerulean">{t.common.brand}</span> — {t.common.poweredByPrefix}{" "}
+            <span className="text-brand-denim">{t.common.poweredByHighlight}</span>
           </p>
           <p className="text-xs text-muted-foreground mt-2">
             © {new Date().getFullYear()} {t.footer.rights}

@@ -47,10 +47,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        brand: {
+          denim: "hsl(var(--brand-denim))",
+          cerulean: "hsl(var(--brand-cerulean))",
+          cultured: "hsl(var(--brand-cultured))",
+          eerie: "hsl(var(--brand-eerie))",
+          auro: "hsl(var(--brand-aurometal))",
+          "blue-jeans": "hsl(var(--brand-blue-jeans))",
+          lime: "hsl(var(--brand-lime))",
+          "fire-opal": "hsl(var(--brand-fire-opal))",
+        },
       },
       fontFamily: {
-        orbitron: ['Orbitron', 'sans-serif'],
-        raleway: ['Raleway', 'sans-serif'],
+        manrope: ['Manrope', 'sans-serif'],
+        urbanist: ['Urbanist', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',

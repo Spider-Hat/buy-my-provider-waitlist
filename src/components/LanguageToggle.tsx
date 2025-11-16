@@ -13,7 +13,7 @@ const LanguageToggle = () => {
     <Button
       onClick={toggleLanguage}
       variant="outline"
-      className="rounded-full px-4 py-2 text-sm font-medium"
+      className="rounded-full px-4 py-2 text-sm font-semibold tracking-wide border-brand-cerulean text-brand-cerulean hover:bg-brand-cerulean/10"
       aria-label={ariaLabel}
     >
       {nextLanguageLabel}
